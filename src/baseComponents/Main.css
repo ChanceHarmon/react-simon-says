@@ -1,0 +1,41 @@
+#main{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    background-color: dimgray;
+    border: 5px solid lightgray;
+    padding: 2em;
+}
+#green{
+    grid-row: 1/2;
+    grid-column: 1/2;
+    border-top-left-radius: 100%;
+    border-top-right-radius: 7%;
+    border-bottom-left-radius: 7%;
+    border: 10px solid rgb(0, 0, 0);
+}
+#red{
+    grid-row: 1/2;
+    grid-column: 2/3;
+    border-top-right-radius: 100%;
+    border-top-left-radius: 7%;
+    border-bottom-right-radius: 7%;
+    border: 10px solid rgb(0, 0, 0);
+}
+#yellow{
+    grid-row: 2/3;
+    grid-column: 1/2;
+    border-bottom-left-radius: 100%;
+    border-top-left-radius: 7%;
+    border-bottom-right-radius: 7%;
+    border: 10px solid rgb(0, 0, 0);
+}
+#blue{
+    grid-row:2/3;
+    grid-column: 2/3;
+    background-color: dodgerblue;
+    border-bottom-right-radius: 100%;
+    border-top-right-radius: 7%;
+    border-bottom-left-radius: 7%;
+    border: 10px solid rgb(0, 0, 0);
+}
