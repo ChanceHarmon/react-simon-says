@@ -9,13 +9,15 @@ import FirstWhistle from './../audio/simon-first-note.mp3';
 import SecondWhistle from './../audio/simon-second-note.mp3';
 import ThirdWhistle from './../audio/simon-third-note.mp3';
 import FourthWhistle from './../audio/simon-fourth-note.mp3';
+import Cannon from './../audio/cannon.mp3';
 
 //clips => Part of Howler setup, I have tried it a lot of ways, but array, even if it is only one item seems to be the way. clips could be banana, just what the example from the use case i studied named the variable. objects with a key of sound at each index does not appear to be banana, so I didn't experiment with that
 const clips = [
     { sound: FirstWhistle },
     { sound: SecondWhistle },
     { sound: ThirdWhistle },
-    { sound: FourthWhistle }
+    { sound: FourthWhistle },
+    { sound: Cannon }
 ];
 const colorArray = ['green', 'red', 'yellow', 'blue'];
 
@@ -25,6 +27,7 @@ class GameBoard extends React.Component {
         this.state = {
             score: 0,
             streak: 0,
+            endGame: false,
             npcList: [],
             playerList: [],
             playBoxText: 'Play',
@@ -194,6 +197,14 @@ class GameBoard extends React.Component {
         this.state.npcList.push(colorArray[this.randomNum(colorArray.length)])
         this.setState({ playerList: [] })
         console.log(this.state)
+        let handler = this.handleNpcColor
+        for (let i = 0; i < this.state.npcList.length; i++) {
+            let currColor = this.state.npcList[i];
+            (function (i, handler) {
+                console.log(handler)
+                setTimeout(handler, i * 1000, currColor);
+            })(i, handler);
+        }
         // this.userPlay();
     }
 
@@ -202,11 +213,12 @@ class GameBoard extends React.Component {
         let idx = this.state.playerList.length - 1;
         if (this.state.playerList[idx] !== this.state.npcList[idx]) {
             console.log('didn\'t match')
+            setTimeout(this.handleEndGame, 1100)
         } else if (this.state.playerList[idx] === this.state.npcList[idx]) {
             console.log('Match')
             if (this.state.playerList.length === this.state.npcList.length) {
                 this.handleScore()
-                this.npcPlay()
+                setTimeout(this.npcPlay, 1100)
             }
         }
         console.log(this.state.playerList)
@@ -221,6 +233,14 @@ class GameBoard extends React.Component {
         } else {
             this.setState({ score: newScore, playBoxText: `Score: ${newScore}` })
         }
+    }
+
+    handleEndGame = () => {
+        this.playSound(clips[4].sound)
+        this.setState(prevState => {
+            return { ...prevState, playBoxText: `Your Score: ${this.state.score}, Click To Play Again`, score: 0, playerList: [], npcList: [], endGame: true }
+        })
+
     }
 
     render() {
