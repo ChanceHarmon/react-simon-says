@@ -21,8 +21,8 @@ class PlayButton extends React.Component {
 
     render() {
         return (
-            <div id='playButton' style={{ backgroundColor: this.state.color, borderColor: this.state.border }} onClick={this.handleClick}>
-                <h2 style={{ color: this.state.textColor }}>Play</h2>
+            <div id='playButton' style={{ backgroundColor: this.props.boxStyle.bgColor, borderColor: this.props.boxStyle.border }} onClick={this.props.startGame}>
+                <h2 style={{ color: this.props.boxStyle.textColor }}>{this.props.boxContent}</h2>
             </div>
         )
     }
